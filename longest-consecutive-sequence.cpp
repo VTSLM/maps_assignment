@@ -1,30 +1,30 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        int i;
+        unordered_set<int> st;
         int longest=1;
         if(nums.size()==0)
         {
             return 0;
         }
-        map<int,int> hashmap;
-        for(i=0;i<nums.size();i++)
+        for(int i=0;i<nums.size();i++)
         {
-            hashmap[nums[i]]=i;
+            st.insert(nums[i]);
         }
-        for(auto it: hashmap)
+        for(auto it : st)
         {
-            if(hashmap.first.find(it-1)==hashmap.end())
+            if(st.find(it-1)==st.end())
             {
-                int cnt=1;
+               int cnt=1;
                 int x=it;
-                while(hashmap.first.find(x+1)!=hashmap.end())
+                while(st.find(x+1)!=st.end())
                 {
-                    cnt++;
                     x++;
+                    cnt++;
                 }
                 longest=max(longest,cnt);
             }
+            
         }
         return longest;
     }
